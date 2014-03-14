@@ -21,7 +21,14 @@ l:  sta 0,x
     sta x1
     lda #50
     sta y1
-    jsr draw_line
+l:  jsr draw_line
+    inc y0
+    inc y1
+    inc y0
+    inc y1
+    lda y0
+    cmp #50
+    bcc l
 .)
 
 forever:
