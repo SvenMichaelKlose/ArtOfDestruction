@@ -1,4 +1,5 @@
 reuse_char:
+    tax
     lda curcol
     sta (col),y
     txa
