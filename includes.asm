@@ -14,5 +14,6 @@
 #include "blitter.asm"
 #include "bits.asm"
 #include "multiply.asm"
+#include "sinetab.asm"
 
 realend:
