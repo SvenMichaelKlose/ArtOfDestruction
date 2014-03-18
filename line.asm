@@ -1,25 +1,13 @@
-smtab_test:
-    .byte opcode_cpx, opcode_cpy
-    .byte opcode_cpx, opcode_cpy
-    .byte opcode_cpx, opcode_cpy
-    .byte opcode_cpx, opcode_cpy
-
-smtab_testop:
-    .byte x1, y1
-    .byte x1, y1
-    .byte x1, y1
-    .byte x1, y1
-
 smtab_increment:
     .byte opcode_inx, opcode_iny
-    .byte opcode_inx, opcode_iny
-    .byte opcode_dex, opcode_dey
+    .byte opcode_inx, opcode_dey
+    .byte opcode_dex, opcode_iny
     .byte opcode_dex, opcode_dey
 
 smtab_step:
     .byte opcode_iny, opcode_inx
-    .byte opcode_dey, opcode_dex
-    .byte opcode_iny, opcode_inx
+    .byte opcode_dey, opcode_inx
+    .byte opcode_iny, opcode_dex
     .byte opcode_dey, opcode_dex
 
 octant = tmp
@@ -28,6 +16,10 @@ draw_line:
 .(
     lda #0
     sta octant
+    lda #opcode_cpx
+    sta loop
+    lda #x1
+    sta loop+1
 
     lda x1      ; dx = x1 - x0
     sec
@@ -44,8 +36,7 @@ p1: sta dx
     bpl p2
     inc octant
     jsr neg
-p2: asl
-    sta dy
+p2: sta dy
 
     asl octant
     lda dx
@@ -63,22 +54,21 @@ p2: asl
 no_swap:
 
     lda dy
+    asl
+    sta dy
     sec         ; D = 2*dy - dx
     sbc dx
     sta line_d
 
+    lda dx
+    asl
+    sta update+1
+
     ldx octant
-    lda smtab_test,x
-    sta loop
-    lda smtab_testop,x
-    sta loop+1
     lda smtab_increment,x
     sta increment
     lda smtab_step,x
     sta step
-    lda dx
-    asl
-    sta update+1
 
     ldx x0
     ldy y0
