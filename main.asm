@@ -13,5 +13,45 @@ l:  sta 0,x
     lda #1
     sta next_char
 
+    lda #64
+    sta x0
+    sta y0
+
+    lda #64+32
+    sta x1
+    lda #64+10
+    sta y1
+    jsr draw_line
+
+    lda #64+10
+    sta x1
+    lda #64+32
+    sta y1
+    jsr draw_line
+
+    lda #64-10
+    sta x1
+    lda #64+32
+    sta y1
+    jsr draw_line
+
+    lda #64-32
+    sta x1
+    lda #64+10
+    sta y1
+    jsr draw_line
+
+    lda #64-32
+    sta x1
+    lda #64-10
+    sta y1
+    jsr draw_line
+
+    lda #64-10
+    sta x1
+    lda #64-32
+    sta y1
+    jsr draw_line
+
 forever:
     jmp forever
