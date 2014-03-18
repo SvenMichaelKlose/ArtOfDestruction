@@ -24,6 +24,11 @@ dy                      = $12
 line_d                  = $13
 
 tmp                     = $14
-next_char               = $15
+tmp2                    = $15
+next_char               = $16
 
-result                  = $16
+result                  = $17
+product                 = $19
+counter                 = $1a
+save_x                  = $1b
+save_y                  = $1c

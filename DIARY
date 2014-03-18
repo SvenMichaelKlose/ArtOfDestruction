@@ -1,4 +1,13 @@
-March, the 14th, 2014
+# March, the 18th, 2014
+
+The cold is gone.  *cough!*  Almost.  We'll need a boring sine table to
+do rotations later.  A no-brainer.  Our world has 256 degrees instead
+of 360.  The table has "only" 64 values.  Should fit nicely with the
+workarounds for multiplying signed integers.  The line drawing needs to
+be finished.  Soon, we might see the first tank.
+
+
+# March, the 14th, 2014
 
 I feel like crap about this idea.  The polygon filler will be the most
 difficult thing to implement.  It takes a couple of decisions to be
@@ -7,3 +16,6 @@ That way we can hack some nice gameplay and views first.
 
 Just got a cold. No surge of hypermotivation to be expected over the
 next couple of days. :(
+
+I picked an 8 by 8 to 16 bit multiplication algorithm.  It's only for
+unsigned integers.  Great!  Let's halve the sine table then!

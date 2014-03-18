@@ -13,7 +13,9 @@
 #include "screen.asm"
 #include "blitter.asm"
 #include "bits.asm"
+#include "math.asm"
 #include "multiply.asm"
+#include "sin.asm"
 #include "sinetab.asm"
 
 realend:
