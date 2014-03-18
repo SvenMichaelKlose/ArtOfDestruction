@@ -13,7 +13,5 @@ l:  sta 0,x
     lda #1
     sta next_char
 
-    jsr plot_circle
-
 forever:
     jmp forever
