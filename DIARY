@@ -6,6 +6,9 @@ of 360.  The table has "only" 64 values.  Should fit nicely with the
 workarounds for multiplying signed integers.  The line drawing needs to
 be finished.  Soon, we might see the first tank.
 
+The line drawing IS finished.  It can't do lines longer than 127 pixels,
+though.  Enough for the first tank.
+
 
 # March, the 14th, 2014
 

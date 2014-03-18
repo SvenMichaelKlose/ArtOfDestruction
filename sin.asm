@@ -14,9 +14,7 @@ no_reverse:
     lda sinetab,y
     asl tmp
     bcc no_inverse
-    eor #$ff
-    clc
-    adc #1
+    jsr neg
 no_inverse:
     ldy save_y
     rts

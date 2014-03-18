@@ -1,3 +1,5 @@
+; https://en.wikipedia.org/wiki/Bresenham_line
+
 smtab_increment:
     .byte opcode_inx, opcode_iny
     .byte opcode_inx, opcode_dey
