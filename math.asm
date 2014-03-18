@@ -5,3 +5,10 @@ neg:eor #$ff
     adc #1
 abs_end:
     rts
+
+sinmul:
+    jsr sin
+    sta product
+    jsr multiply
+    sta result
+    rts

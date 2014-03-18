@@ -1,19 +1,22 @@
 multiply:
     stx save_x
     sty save_y
+
     lda result  ; Signedness of result.
     eor product
     sta tmp
+
     lda product
     jsr abs
     sta product
+
     jsr unsigned_multiply
     tya
+
     asl tmp
     bcc no_neg
-    eor #$ff
-    clc
-    adc #1
+    jsr neg
+
 no_neg:
     ldx save_x
     ldy save_y

@@ -17,5 +17,6 @@
 #include "multiply.asm"
 #include "sin.asm"
 #include "sinetab.asm"
+#include "test-circle.asm"
 
 realend:

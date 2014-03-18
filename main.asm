@@ -1,5 +1,5 @@
 main:
-clear:
+clear_zeropage_and_charset:
 .(
     ldx #0
     txa
@@ -9,46 +9,11 @@ l:  sta 0,x
     bne l
 .)
 
+    jsr clear_screen
     lda #1
     sta next_char
 
-    jsr clear_screen
-
-plot_circle:
-.(
-    lda #0
-    sta counter
-l:  lda #90
-    sta result
-    lda counter
-    jsr sinmul
-    lda #64
-    clc
-    adc result
-    tax
-
-    lda #160
-    sta result
-    lda counter
-    clc
-    adc #64+128
-    jsr sinmul
-    lda #96
-    clc
-    adc result
-    tay
-    jsr draw_pixel
-
-    inc counter
-    bne l
-.)
+    jsr plot_circle
 
 forever:
     jmp forever
-
-sinmul:
-    jsr sin
-    sta product
-    jsr multiply
-    sta result
-    rts
