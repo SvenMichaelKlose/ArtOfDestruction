@@ -1,4 +1,4 @@
-plot_circle:
+test_circle:
 .(
     lda #0
     sta counter

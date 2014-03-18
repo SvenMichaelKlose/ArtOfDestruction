@@ -18,5 +18,7 @@
 #include "sin.asm"
 #include "sinetab.asm"
 #include "line.asm"
+#include "test-octants.asm"
+#include "test-circle.asm"
 
 realend:
