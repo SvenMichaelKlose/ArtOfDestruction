@@ -15,6 +15,7 @@
 #include "bits.asm"
 #include "math.asm"
 #include "multiply.asm"
+#include "divide.asm"
 #include "sin.asm"
 #include "sinetab.asm"
 #include "line.asm"

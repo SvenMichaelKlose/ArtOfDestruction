@@ -29,6 +29,7 @@ next_char               = $16
 
 result                  = $17
 product                 = $19
+denominator             = product
 counter                 = $1a
 save_x                  = $1b
 save_y                  = $1c

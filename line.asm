@@ -27,7 +27,7 @@ draw_line:
     sec
     sbc x0
     bpl p1
-    inc octant
+    inc octant  ; Tell to decrement X.
     jsr neg
 p1: sta dx
 
@@ -36,7 +36,7 @@ p1: sta dx
     sec
     sbc y0
     bpl p2
-    inc octant
+    inc octant  ; Tell to decrement Y.
     jsr neg
 p2: sta dy
 
@@ -44,7 +44,7 @@ p2: sta dy
     lda dx
     cmp dy
     bcs no_swap
-    inc octant
+    inc octant  ; Tell to swap X and Y.
     ldx dx
     ldy dy
     sty dx
