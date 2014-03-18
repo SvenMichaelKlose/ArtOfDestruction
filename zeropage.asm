@@ -25,3 +25,5 @@ line_d                  = $13
 
 tmp                     = $14
 next_char               = $15
+
+result                  = $16

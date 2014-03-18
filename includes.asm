@@ -13,5 +13,6 @@
 #include "screen.asm"
 #include "blitter.asm"
 #include "bits.asm"
+#include "multiply.asm"
 
 realend:
