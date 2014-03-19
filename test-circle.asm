@@ -14,9 +14,7 @@ l:  lda #90
     lda #160
     sta result
     lda counter
-    clc
-    adc #64+128
-    jsr sinmul
+    jsr cosmul
     lda #96
     clc
     adc result

@@ -19,9 +19,9 @@ draw_line:
     lda #0
     sta octant
     lda #opcode_cpx
-    sta loop
+    sta test
     lda #x1
-    sta loop+1
+    sta test+1
 
     lda x1      ; dx = x1 - x0
     sec
@@ -50,9 +50,9 @@ p2: sta dy
     sty dx
     stx dy
     lda #opcode_cpy
-    sta loop
+    sta test
     lda #y1
-    sta loop+1
+    sta test+1
 no_swap:
 
     lda dy
@@ -74,9 +74,10 @@ no_swap:
 
     ldx x0
     ldy y0
-    jsr draw_pixel
 
 loop:
+    jsr draw_pixel
+test:
     cpx x1
     beq done
 increment:
@@ -86,14 +87,12 @@ increment:
     bmi n1      ; D < 0
 step:
     iny
-    jsr draw_pixel
     lda dy      ; D = D + (2dy - 2dx)
     sec
 update:
     sbc #0
     jmp add_to_d
-n1: jsr draw_pixel
-    lda dy      ; D = D + 2dy
+n1: lda dy      ; D = D + 2dy
 add_to_d:
     clc
     adc line_d

@@ -6,6 +6,9 @@ neg:eor #$ff
 abs_end:
     rts
 
+cosmul:
+    sec
+    sbc #64
 sinmul:
     jsr sin
     sta product
