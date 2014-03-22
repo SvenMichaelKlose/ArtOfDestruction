@@ -4,7 +4,6 @@ draw_pixel:
     pha
     lsr
     lsr
-    lsr
     sta scrx
     tya
     pha
@@ -13,21 +12,26 @@ draw_pixel:
     lsr
     sta scry
     txa
-    and #7
+    and #3
     sta char_x
     tya
     and #7
     sta char_y
     jsr get_char
     ldx char_x
-    lda bits,x
+    lda multicolor_pixels,x
     ldy char_y
     ora (d),y
     sta (d),y
-done:
     pla
     tay
     pla
     tax
     rts
 .)
+
+multicolor_pixels:
+    .byte %00101010
+    .byte %10001010
+    .byte %10100010
+    .byte %10101000

@@ -1,9 +1,4 @@
 reuse_char:
-    tax
-    lda curcol
-    sta (col),y
-    txa
-
 get_char_addr:
     sta tmp
     asl
@@ -21,7 +16,7 @@ get_char_addr:
     rts
 
 alloc_wrap:
-    lda #0
+    lda #1
     jmp fetch_char
 
 alloc_char:
@@ -60,9 +55,8 @@ get_char:
     bne reuse_char
     jsr alloc_char
     sta (scr),y
-    lda curcol
-    sta (col),y
     rts
+
 cant_use_position:
     lda #$f0
     sta d+1

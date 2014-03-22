@@ -2,6 +2,7 @@ test_circle:
 .(
     lda #0
     sta counter
+
 l:  lda #90
     sta result
     lda counter
@@ -19,6 +20,7 @@ l:  lda #90
     clc
     adc result
     tay
+
     jsr draw_pixel
 
     inc counter

@@ -27,6 +27,7 @@ vicreg_noise                    = $900d
 vicreg_auxcol_volume            = $900e
 vicreg_screencol_reverse_border = $900f
 
+multicolor = 8
 black   = 0
 white   = 1
 red     = 2
