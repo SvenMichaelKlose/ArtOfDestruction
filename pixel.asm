@@ -19,9 +19,10 @@ draw_pixel:
     sta char_y
     jsr get_char
     ldx char_x
-    lda multicolor_pixels,x
     ldy char_y
-    ora (d),y
+    lda (d),y
+    and multicolor_masks,x
+    ora multicolor_pixels,x
     sta (d),y
     pla
     tay
@@ -35,3 +36,9 @@ multicolor_pixels:
     .byte %10001010
     .byte %10100010
     .byte %10101000
+
+multicolor_masks:
+    .byte %00111111
+    .byte %11001111
+    .byte %11110011
+    .byte %11111100
