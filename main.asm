@@ -16,6 +16,15 @@ l:  lda #0
     lda #1
     sta next_char
 
+.(
+    ldx #21
+l:  lda #0
+    sta screen+22*22,x
+    lda #red
+    sta colors+22*22,x
+    dex
+    bpl l
+.)
     jsr sky_and_ground
     jsr test_octants
     jsr test_circle
