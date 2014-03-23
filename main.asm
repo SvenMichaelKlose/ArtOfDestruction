@@ -10,6 +10,8 @@ l:  lda #0
     bne l
 .)
 
+    lda #red*16+yellow
+    sta vicreg_screencol_reverse_border
     jsr clear_screen
     lda #1
     sta next_char
