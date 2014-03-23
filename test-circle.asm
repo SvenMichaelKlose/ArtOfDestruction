@@ -3,11 +3,11 @@ test_circle:
     lda #0
     sta counter
 
-l:  lda #90
+l:  lda #45
     sta result
     lda counter
     jsr sinmul
-    lda #64
+    lda #32
     clc
     adc result
     tax

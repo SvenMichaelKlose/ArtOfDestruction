@@ -32,7 +32,7 @@ draw_pixel:
 .)
 
 multicolor_pixels:
-    .byte %00101010
+    .byte %00011010
     .byte %10001010
     .byte %10100010
     .byte %10101000
