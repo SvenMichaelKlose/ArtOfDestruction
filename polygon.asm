@@ -4,7 +4,7 @@ xrf:    .byte 0
 xr:     .byte 32
 xbl:    .byte 16
 xbr:    .byte 40
-yt:     .byte 20
+yt:     .byte 0
 yb:     .byte 60
 
 row:    .byte 0
@@ -43,9 +43,6 @@ polygon:
 
 yloop:
     lda yt
-    cmp yb
-    beq done
-
     lsr
     lsr
     sta scry
@@ -93,6 +90,10 @@ end_of_line:
     sta (d),y
     iny
     sta (d),y
+
+    dec height
+    beq done
+
     inc yt
 
     lda xlf
