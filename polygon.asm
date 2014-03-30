@@ -4,8 +4,8 @@ xrf:    .byte 0
 xr:     .byte 32
 xbl:    .byte 16
 xbr:    .byte 40
-yt:     .byte 0
-yb:     .byte 128
+yt:     .byte 20
+yb:     .byte 60
 
 row:    .byte 0
 width:  .byte 0
@@ -48,7 +48,6 @@ yloop:
 
     lsr
     lsr
-    lsr
     sta scry
     lda xl
     lsr
@@ -68,14 +67,12 @@ yloop:
     lda negate4,x
     tax
 
-    lda yt
-    and #7
-    tay
-
 xloop:
-    sty save_y
     jsr get_char
-    ldy save_y
+    lda yt
+    and #3
+    asl
+    tay
     lda (d),y
 stay_on_char:
     and pixelmask_r,x
@@ -85,11 +82,16 @@ stay_on_char:
     dex
     bpl stay_on_char
     sta (d),y
+    iny
+    sta (d),y
+    dey
     inc scrx
     ldx #3
     jmp xloop
 
 end_of_line:
+    sta (d),y
+    iny
     sta (d),y
     inc yt
 
