@@ -50,7 +50,6 @@ yloop:
     lsr
     lsr
     sta scrx
-    jsr scraddr
 
     lda xr
     sec
