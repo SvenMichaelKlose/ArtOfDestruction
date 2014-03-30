@@ -92,6 +92,7 @@ step:
 update:
     sbc #0
     jmp add_to_d
+
 n1: lda dy      ; D = D + 2dy
 add_to_d:
     clc

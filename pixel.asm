@@ -32,10 +32,17 @@ draw_pixel:
 .)
 
 multicolor_pixels:
-    .byte %00101010
-    .byte %10001010
-    .byte %10100010
-    .byte %10101000
+    .byte %01000000
+    .byte %00010000
+    .byte %00000100
+    .byte %00000001
+
+    .byte %11000000
+    .byte %00110000
+    .byte %00001100
+    .byte %00000011
+
+    .byte 0, 0, 0, 0
 
 multicolor_masks:
     .byte %00111111

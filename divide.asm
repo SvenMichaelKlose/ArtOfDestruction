@@ -3,6 +3,7 @@
 unsigned_divide:
 .(
     lda #0
+    sta result
     ldx #15
     clc
 l:  rol result

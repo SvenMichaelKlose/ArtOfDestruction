@@ -8,10 +8,7 @@
 #include "init-end.asm"
 
 #include "main.asm"
-#include "test-octants.asm"
-#include "test-circle.asm"
 #include "sky_and_ground.asm"
-#include "pixel.asm"
 #include "char.asm"
 #include "screen.asm"
 #include "blitter.asm"
@@ -21,6 +18,12 @@
 #include "divide.asm"
 #include "sin.asm"
 #include "sinetab.asm"
+#if 0
 #include "line.asm"
+#include "pixel.asm"
+#include "test-octants.asm"
+#include "test-circle.asm"
+#endif
+#include "polygon.asm"
 
 realend:

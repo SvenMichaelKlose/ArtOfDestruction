@@ -28,8 +28,9 @@ l:  lda #0
     bpl l
 .)
     jsr sky_and_ground
-    jsr test_octants
-    jsr test_circle
+;    jsr test_octants
+;    jsr test_circle
+    jsr polygon
 
 forever:
     jmp forever
