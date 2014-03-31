@@ -19,9 +19,6 @@
 #include "sin.asm"
 #include "sinetab.asm"
 #if 0
-#include "line.asm"
-#include "pixel.asm"
-#include "test-octants.asm"
 #include "test-circle.asm"
 #endif
 #include "polygon.asm"

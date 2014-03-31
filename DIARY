@@ -1,3 +1,16 @@
+# March, the 31th, 2014
+
+Couldn't find the right, terse math to calculate filling polygons with
+whole characters.  Now it's most simple: first, the polygon is filled
+with chars, then the edges are drawn pixel-wise whilst skipping over
+the fillers.  This is the best mix of compactness and performance I
+could come up with after thinking about it for all the last days.  It
+doesn't clip at the borders, yet, but the project is saved.
+
+In the binary of today you can spot the filling chars in a different
+color than the edges.
+
+
 # March, the 22th, 2014
 
 Just got the nerves and time to switch the thing to multicolor.  And the

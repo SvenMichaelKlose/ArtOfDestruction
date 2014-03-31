@@ -70,7 +70,7 @@ fill_with_chars:
 ycloop:
     jsr scraddr
 
-    lda xrc
+    lda xrc         ; Number of chars in row.
     sec
     sbc xlc
     bcc no_fill
