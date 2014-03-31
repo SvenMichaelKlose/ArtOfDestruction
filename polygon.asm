@@ -2,12 +2,13 @@ polygon:
 .(
     lda #32
     sta xl
+    lda #33
     sta xr
-    lda #1
+    lda #0
     sta xbl
-    lda #88
+    lda #80
     sta xbr
-    lda #4
+    lda #0
     sta yt
     lda #80
     sta yb
@@ -118,12 +119,12 @@ yloop:
     lsr
     lsr
     sta scrx
+    jsr scraddr
 
     lda xr
     sec
     sbc xl
     sta width
-    inc width
 
     lda xl
     and #3
@@ -132,17 +133,13 @@ yloop:
     tax
 
 xloop:
-    jsr scraddr
-xloop2:
     jsr get_char
 
     lda yt
     and #3
     asl
     tay
-
     lda (d),y
-
 stay_on_char:
     and pixelmasks,x
     ora polypixels,x
@@ -154,15 +151,12 @@ stay_on_char:
     sta (d),y
     iny
     sta (d),y
-    dey
-
+    ldy scrx
 skip_done:
-    inc scrx
-    jsr scraddr
+    iny
     lda (scr),y
     cmp #1
     bne no_skip
-
     lda width
     sec
     sbc #4
@@ -170,8 +164,9 @@ skip_done:
     jmp skip_done
 
 no_skip:
+    sty scrx
     ldx #3
-    jmp xloop2
+    jmp xloop
 
 end_of_line:
     sta (d),y
