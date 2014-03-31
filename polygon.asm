@@ -135,22 +135,27 @@ xloop:
     jsr scraddr
 xloop2:
     jsr get_char
+
     lda yt
     and #3
     asl
     tay
+
     lda (d),y
+
 stay_on_char:
-    and pixelmask_r,x
+    and pixelmasks,x
     ora polypixels,x
     dec width
     beq end_of_line
     dex
     bpl stay_on_char
+
     sta (d),y
     iny
     sta (d),y
     dey
+
 skip_done:
     inc scrx
     jsr scraddr
@@ -200,13 +205,13 @@ done:
     rts
 .)
 
-pixelmask_r:
+pixelmasks:
     .byte %11111100
     .byte %11110011
     .byte %11001111
     .byte %00111111
 
-polypixels::
+polypixels:
     .byte %00000001
     .byte %00000100
     .byte %00010000
