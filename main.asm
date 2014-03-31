@@ -10,12 +10,22 @@ l:  lda #0
     bne l
 .)
 
+.(
+    ldx #7
+    lda #%11111111
+l:  sta $1008,x
+    dex
+    bpl l
+.)
+
     lda #red*16+black
     sta vicreg_screencol_reverse_border
     lda #yellow*16
     sta vicreg_auxcol_volume
+
     jsr clear_screen
-    lda #1
+
+    lda #2
     sta next_char
 
 .(

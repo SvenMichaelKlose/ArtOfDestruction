@@ -2,19 +2,31 @@ xlf:    .byte 0
 xl:     .byte 32
 xrf:    .byte 0
 xr:     .byte 32
-xbl:    .byte 16
-xbr:    .byte 40
-yt:     .byte 0
-yb:     .byte 60
+xbl:    .byte 1
+xbr:    .byte 88
+yt:     .byte 4
+yb:     .byte 80
 
 row:    .byte 0
 width:  .byte 0
 height: .byte 0
 xsl:    .word 0
 xsr:    .word 0
+rows:   .byte 0
+xlcf:   .byte 0
+xlc:    .byte 0
+xrcf:   .byte 0
+xrc:    .byte 0
+yc:     .byte 0
 
 polygon:
 .(
+    lda #0
+    sta xlf
+    sta xrf
+    sta xrcf
+    sta xrcf
+
     lda yb
     sec
     sbc yt
@@ -41,6 +53,71 @@ polygon:
     lda result+1
     sta xsr+1
 
+    lda height
+    lsr
+    lsr
+    beq draw_edges
+    sta rows
+
+    lda #0
+    sta scrx
+
+    lda xl
+    lsr
+    lsr
+    sta xlc
+    sta xrc
+    inc xlc
+    dec xrc
+
+    lda yt
+    lsr
+    lsr
+    sta scry
+
+ycloop:
+    jsr scraddr
+
+    lda xrc
+    sec
+    sbc xlc
+    bcc no_fill
+    tax
+
+    ldy xlc
+    lda #1
+
+xcloop:
+    sta (scr),y
+    iny
+    dex
+    bpl xcloop
+
+no_fill:
+    dec rows
+    beq draw_edges
+
+    inc scry
+
+    lda xlcf
+    sec
+    sbc xsl
+    sta xlcf
+    lda xlc
+    sbc xsl+1
+    sta xlc
+
+    lda xrcf
+    clc
+    adc xsr
+    sta xrcf
+    lda xrc
+    adc xsr+1
+    sta xrc
+
+    jmp ycloop
+
+draw_edges:
 yloop:
     lda yt
     lsr
@@ -64,6 +141,8 @@ yloop:
     tax
 
 xloop:
+    jsr scraddr
+xloop2:
     jsr get_char
     lda yt
     and #3
@@ -81,9 +160,22 @@ stay_on_char:
     iny
     sta (d),y
     dey
+skip_done:
     inc scrx
+    jsr scraddr
+    lda (scr),y
+    cmp #1
+    bne no_skip
+
+    lda width
+    sec
+    sbc #4
+    sta width
+    jmp skip_done
+
+no_skip:
     ldx #3
-    jmp xloop
+    jmp xloop2
 
 end_of_line:
     sta (d),y

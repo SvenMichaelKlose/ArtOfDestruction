@@ -50,7 +50,7 @@ get_char:
 .(
     jsr test_position
     bcs cant_use_position
-    jsr scraddr
+    ldy #0
     lda (scr),y
     bne reuse_char
     jsr alloc_char
