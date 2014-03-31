@@ -1,6 +1,6 @@
 polygon:
 .(
-    lda #32
+    lda #32         ; Our test coordinates.
     sta xl
     lda #33
     sta xr
@@ -13,7 +13,7 @@ polygon:
     lda #85
     sta yb
 
-    lda #0
+    lda #0          ; Clear decimal places.
     sta xlf
     sta xrf
     sta xrcf
@@ -25,7 +25,7 @@ polygon:
     sta height
     sta denominator
 
-    lda xl              ; slope left
+    lda xl          ; slope left
     sec
     sbc xbl
     sta result+1
@@ -35,7 +35,7 @@ polygon:
     lda result+1
     sta xsl+1
 
-    lda xbr             ; slope right
+    lda xbr         ; slope right
     sec
     sbc xr
     sta result+1
@@ -45,14 +45,12 @@ polygon:
     lda result+1
     sta xsr+1
 
+fill_with_chars:
     lda height
     lsr
     lsr
     beq draw_edges
     sta rows
-
-    lda #0
-    sta scrx
 
     lda xl
     lsr
@@ -66,6 +64,8 @@ polygon:
     lsr
     lsr
     sta scry
+    lda #0
+    sta scrx
 
 ycloop:
     jsr scraddr
@@ -91,7 +91,7 @@ no_fill:
 
     inc scry
 
-    lda xlcf
+    lda xlcf        ; Step left slope.
     sec
     sbc xsl
     sta xlcf
@@ -99,7 +99,7 @@ no_fill:
     sbc xsl+1
     sta xlc
 
-    lda xrcf
+    lda xrcf        ; Step right slope.
     clc
     adc xsr
     sta xrcf
@@ -115,6 +115,7 @@ yloop:
     and #3
     asl
     sta charline
+
     lda yt
     lsr
     lsr
@@ -139,7 +140,6 @@ yloop:
 
 xloop:
     jsr get_char
-
     ldy charline
     lda (d),y
 stay_on_char:
@@ -153,6 +153,7 @@ stay_on_char:
     sta (d),y
     iny
     sta (d),y
+
     ldy scrx
 skip_done:
     iny
@@ -181,7 +182,7 @@ end_of_line:
 
     inc yt
 
-    lda xlf
+    lda xlf     ; Step left slope.
     sec
     sbc xsl
     sta xlf
@@ -189,7 +190,7 @@ end_of_line:
     sbc xsl+1
     sta xl
 
-    lda xrf
+    lda xrf     ; Step right slope.
     clc
     adc xsr
     sta xrf
