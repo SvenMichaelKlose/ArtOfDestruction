@@ -1,11 +1,12 @@
 # March, the 31th, 2014
 
 Couldn't find the right, terse math to calculate filling polygons with
-whole characters.  Now it's most simple: first, the polygon is filled
-with chars, then the edges are drawn pixel-wise whilst skipping over
-the fillers.  This is the best mix of compactness and performance I
-could come up with after thinking about it for all the last days.  It
-doesn't clip at the borders, yet, but the project is saved.
+whole characters.  Bresenham didn't do the trick.  Now it's most simple:
+first, the polygon is filled with chars, then the edges are drawn
+pixel-wise whilst skipping over the fillers.  This is the best mix of
+compactness and performance I could come up with after thinking about it
+for all the last days.  It doesn't clip at the borders, yet, but the
+project is saved.
 
 In the binary of today you can spot the filling chars in a different
 color than the edges.
@@ -20,7 +21,7 @@ have to approach things differently to squeeze everything in.
 
 The fundamental color palette looks hilarious.  It drills into one's mind.
 Good start. Gaming is about attention. And mixing fundamentals into
-illusions. And something's odd with the taste of my tea...
+illusions. And something's odd about the taste of my tea...
 
 
 # March, the 18th, 2014
