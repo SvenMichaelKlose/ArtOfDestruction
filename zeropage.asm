@@ -54,4 +54,5 @@ xlc     = $2e
 xrcf    = $2f
 xrc     = $30
 yc      = $31
+charline= $32
 

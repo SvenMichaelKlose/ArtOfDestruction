@@ -10,7 +10,7 @@ polygon:
     sta xbr
     lda #0
     sta yt
-    lda #80
+    lda #85
     sta yb
 
     lda #0
@@ -112,6 +112,10 @@ no_fill:
 draw_edges:
 yloop:
     lda yt
+    and #3
+    asl
+    sta charline
+    lda yt
     lsr
     lsr
     sta scry
@@ -128,6 +132,7 @@ yloop:
 
     lda xl
     and #3
+    beq filler_test
     tax
     lda negate4,x
     tax
@@ -135,10 +140,7 @@ yloop:
 xloop:
     jsr get_char
 
-    lda yt
-    and #3
-    asl
-    tay
+    ldy charline
     lda (d),y
 stay_on_char:
     and pixelmasks,x
@@ -154,6 +156,7 @@ stay_on_char:
     ldy scrx
 skip_done:
     iny
+filler_test:
     lda (scr),y
     cmp #1
     bne no_skip
