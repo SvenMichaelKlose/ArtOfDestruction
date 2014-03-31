@@ -25,11 +25,11 @@ polygon:
     sta height
     sta denominator
 
-    lda xl          ; slope left
+    lda xbl         ; slope left
     sec
-    sbc xbl
+    sbc xl
     sta result+1
-    jsr unsigned_divide
+    jsr divide
     lda result
     sta xsl
     lda result+1
@@ -39,7 +39,7 @@ polygon:
     sec
     sbc xr
     sta result+1
-    jsr unsigned_divide
+    jsr divide
     lda result
     sta xsr
     lda result+1
@@ -92,11 +92,11 @@ no_fill:
     inc scry
 
     lda xlcf        ; Step left slope.
-    sec
-    sbc xsl
+    clc
+    adc xsl
     sta xlcf
     lda xlc
-    sbc xsl+1
+    adc xsl+1
     sta xlc
 
     lda xrcf        ; Step right slope.
@@ -183,11 +183,11 @@ end_of_line:
     inc yt
 
     lda xlf     ; Step left slope.
-    sec
-    sbc xsl
+    clc
+    adc xsl
     sta xlf
     lda xl
-    sbc xsl+1
+    adc xsl+1
     sta xl
 
     lda xrf     ; Step right slope.
