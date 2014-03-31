@@ -33,3 +33,25 @@ denominator             = product
 counter                 = $1a
 save_x                  = $1b
 save_y                  = $1c
+
+xlf     = $1d
+xl      = $1e
+xrf     = $1f
+xr      = $20
+xbl     = $21
+xbr     = $22
+yt      = $23
+yb      = $24
+
+row     = $25
+width   = $26
+height  = $27
+xsl     = $28
+xsr     = $2a
+rows    = $2c
+xlcf    = $2d
+xlc     = $2e
+xrcf    = $2f
+xrc     = $30
+yc      = $31
+

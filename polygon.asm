@@ -1,26 +1,17 @@
-xlf:    .byte 0
-xl:     .byte 32
-xrf:    .byte 0
-xr:     .byte 32
-xbl:    .byte 1
-xbr:    .byte 88
-yt:     .byte 4
-yb:     .byte 80
-
-row:    .byte 0
-width:  .byte 0
-height: .byte 0
-xsl:    .word 0
-xsr:    .word 0
-rows:   .byte 0
-xlcf:   .byte 0
-xlc:    .byte 0
-xrcf:   .byte 0
-xrc:    .byte 0
-yc:     .byte 0
-
 polygon:
 .(
+    lda #32
+    sta xl
+    sta xr
+    lda #1
+    sta xbl
+    lda #88
+    sta xbr
+    lda #4
+    sta yt
+    lda #80
+    sta yb
+
     lda #0
     sta xlf
     sta xrf
