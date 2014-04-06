@@ -5,9 +5,7 @@
 #include "basic-loader.asm"
 
 #include "init.asm"
-#include "init-end.asm"
-
-#include "main.asm"
+#include "lowmem-start.asm"
 #include "sky_and_ground.asm"
 #include "char.asm"
 #include "screen.asm"
@@ -18,6 +16,11 @@
 #include "divide.asm"
 #include "sin.asm"
 #include "sinetab.asm"
+#include "lowmem-end.asm"
+#include "init-end.asm"
+
+#include "main.asm"
+
 #if 0
 #include "test-circle.asm"
 #endif
