@@ -4,12 +4,13 @@ clear_zeropage_and_charset:
     ldx #0
 l:  lda #0
     sta 0,x
-    lda #%10101010
+    lda #%10101010  ; Character colors are our background colors.
     sta $1000,x
     inx
     bne l
 .)
 
+init_filling_char:
 .(
     ldx #7
     lda #%11111111
@@ -28,6 +29,7 @@ l:  sta $1008,x
     lda #2
     sta next_char
 
+make_red_line_on_bottom:
 .(
     ldx #21
 l:  lda #0
@@ -37,9 +39,21 @@ l:  lda #0
     dex
     bpl l
 .)
+
     jsr sky_and_ground
-;    jsr test_octants
-;    jsr test_circle
+
+    lda #32         ; Our test coordinates.
+    sta x_left
+    lda #33
+    sta x_right
+    lda #0
+    sta x_bottom_left
+    lda #80
+    sta x_bottom_right
+    lda #0
+    sta y_top
+    lda #85
+    sta y_bottom
     jsr polygon
 
 forever:

@@ -1,17 +1,8 @@
 polygon:
 .(
-    lda #32         ; Our test coordinates.
-    sta x_left
-    lda #33
-    sta x_right
-    lda #0
-    sta x_bottom_left
-    lda #80
-    sta x_bottom_right
-    lda #0
-    sta y_top
-    lda #85
-    sta y_bottom
+    lda #1
+    sta filler_set+1
+    sta filler_test2+1
 
     lda #0          ; Clear decimal places.
     sta x_left_decimals
@@ -77,7 +68,8 @@ ycloop:
     tax
 
     ldy x_char_left
-    lda #1
+filler_set:
+    lda #0
 
 xcloop:
     sta (scr),y
@@ -159,7 +151,8 @@ skip_done:
     iny
 filler_test:
     lda (scr),y
-    cmp #1
+filler_test2:
+    cmp #0
     bne no_skip
     lda width
     sec
