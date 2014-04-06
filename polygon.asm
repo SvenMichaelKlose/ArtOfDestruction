@@ -1,4 +1,163 @@
+point_left:     .byte 0
+point_right:    .byte 0
+section_height: .byte 0
+
+xcoords:
+    .byte 20, 80, 70, 10
+ycoords:
+    .byte 20, 30, 80, 70
+    .byte 0 ; Keep this for finding the highest point.
+
+opposite_points:
+    .byte 2
+previous_points:
+    .byte 3, 0,
+next_points:
+    .byte 1, 2, 3, 0
+
+point_to_left:
+    lda xcoords,x
+    sta x_bottom_left
+    lda ycoords,x
+    sta y_bottom_left
+    rts
+
+point_to_right:
+    lda xcoords,x
+    sta x_bottom_right
+    lda ycoords,x
+    sta y_bottom_right
+    rts
+
+calculate_slope_left:
+    lda y_bottom_left
+    sec
+    sbc y_top
+    sta height_left
+    sta denominator
+    lda x_bottom_left
+    sec
+    sbc x_left
+    sta result
+    jsr divide
+    lda result_decimals
+    sta slope_left_decimals
+    lda result
+    sta slope_left
+    rts
+
+calculate_slope_right:
+    lda y_bottom_right
+    sec
+    sbc y_top
+    sta height_right
+    sta denominator
+    lda x_bottom_right
+    sec
+    sbc x_right
+    sta result
+    jsr divide
+    lda result_decimals
+    sta slope_right_decimals
+    lda result
+    sta slope_right
+    rts
+
 polygon:
+.(
+find_highest_point_in_quad:
+    ldx #0
+    lda #255
+l:  cmp ycoords,x
+    bcs found_point
+    lda ycoords,x
+    inx
+    jmp l
+found_point:
+    txa
+    and #3
+    tax
+
+make_top_section:
+    lda xcoords,x
+    sta x_left
+    sta x_right
+    inc x_right
+    lda ycoords,x
+    sta y_top
+
+    lda previous_points,x
+    sta point_left
+    tax
+    jsr point_to_left
+
+    lda opposite_points,x
+    sta point_right
+    tax
+    jsr point_to_right
+
+    lda x_left
+    lsr
+    lsr
+    sta x_char_left
+    inc x_char_left
+
+    lda x_right
+    lsr
+    lsr
+    sta x_char_right
+    dec x_char_right
+
+    jsr calculate_slope_left
+    jsr calculate_slope_right
+
+calculate_height:
+    lda height_right
+    cmp height_left
+    bcc n1
+    lda height_left
+n1: sta section_height
+    sta height
+
+    jsr fill_polygon_section
+
+    lda point_left
+    cmp point_right
+    beq done
+
+    lda height_left
+    sec
+    sbc section_height
+    sta height_left
+    bne no_update_left
+    ldx point_left
+    lda previous_points,x
+    sta point_left
+    tax
+    jsr point_to_left
+    jsr calculate_slope_left
+no_update_left:
+
+    lda height_right
+    sec
+    sbc section_height
+    sta height_right
+    bne no_update_right
+    ldx point_right
+    lda next_points,x
+    sta point_right
+    tax
+    jsr point_to_right
+    jsr calculate_slope_right
+no_update_right:
+
+    jmp calculate_height
+
+done:
+    rts
+.)
+
+fill_polygon_section:
 .(
     lda #1
     sta filler_set+1
@@ -10,46 +169,12 @@ polygon:
     sta x_char_right_decimals
     sta x_char_left_decimals
 
-    lda y_bottom
-    sec
-    sbc y_top
-    sta height
-    sta denominator
-
-    lda x_bottom_left         ; slope left
-    sec
-    sbc x_left
-    sta result
-    jsr divide
-    lda result_decimals
-    sta slope_left_decimals
-    lda result
-    sta slope_left
-
-    lda x_bottom_right         ; slope right
-    sec
-    sbc x_right
-    sta result
-    jsr divide
-    lda result_decimals
-    sta slope_right_decimals
-    lda result
-    sta slope_right
-
 fill_with_chars:
     lda height
     lsr
     lsr
     beq draw_edges
     sta rows
-
-    lda x_left
-    lsr
-    lsr
-    sta x_char_left
-    sta x_char_right
-    inc x_char_left
-    dec x_char_right
 
     lda y_top
     lsr
@@ -78,11 +203,6 @@ xcloop:
     bpl xcloop
 
 no_fill:
-    dec rows
-    beq draw_edges
-
-    inc scry
-
     lda x_char_left_decimals        ; Step left slope.
     clc
     adc slope_left_decimals
@@ -98,6 +218,11 @@ no_fill:
     lda x_char_right
     adc slope_right
     sta x_char_right
+
+    dec rows
+    beq draw_edges
+
+    inc scry
 
     jmp ycloop
 
@@ -170,11 +295,6 @@ end_of_line:
     iny
     sta (d),y
 
-    dec height
-    beq done
-
-    inc y_top
-
     lda x_left_decimals     ; Step left slope.
     clc
     adc slope_left_decimals
@@ -191,6 +311,10 @@ end_of_line:
     adc slope_right
     sta x_right
 
+    dec height
+    beq done
+
+    inc y_top
     jmp yloop
 
 done:

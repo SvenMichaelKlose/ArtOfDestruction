@@ -41,19 +41,6 @@ l:  lda #0
 .)
 
     jsr sky_and_ground
-
-    lda #32         ; Our test coordinates.
-    sta x_left
-    lda #33
-    sta x_right
-    lda #0
-    sta x_bottom_left
-    lda #80
-    sta x_bottom_right
-    lda #0
-    sta y_top
-    lda #85
-    sta y_bottom
     jsr polygon
 
 forever:

@@ -48,14 +48,17 @@ x_right                 = $25
 x_bottom_left           = $26
 x_bottom_right          = $27
 y_top                   = $28
-y_bottom                = $29
+y_bottom_left           = $29
+y_bottom_right          = $2a
 
-x_char_left_decimals    = $2a
-x_char_left             = $2b
-x_char_right_decimals   = $2c
-x_char_right            = $2d
+x_char_left_decimals    = $2b
+x_char_left             = $2c
+x_char_right_decimals   = $2d
+x_char_right            = $2e
 
-width                   = $2e
-height                  = $2f
-rows                    = $30
-charline                = $31
+width                   = $2f
+height                  = $30
+height_left             = $31
+height_right            = $32
+rows                    = $33
+charline                = $34

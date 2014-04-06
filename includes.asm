@@ -20,10 +20,6 @@
 #include "init-end.asm"
 
 #include "main.asm"
-
-#if 0
-#include "test-circle.asm"
-#endif
 #include "polygon.asm"
 
 realend:
