@@ -162,6 +162,7 @@ fill_polygon_section:
     lda #1
     sta filler_set+1
     sta filler_test2+1
+    sta filler_test3+1
 
     lda #0          ; Clear decimal places.
     sta x_left_decimals
@@ -223,7 +224,6 @@ no_fill:
     beq draw_edges
 
     inc scry
-
     jmp ycloop
 
 draw_edges:
@@ -250,9 +250,18 @@ yloop:
 
     lda x_left
     and #3
-    beq filler_test
     tax
-    lda negate4,x
+    lda (scr),y
+filler_test3:
+    cmp #0
+    bne c1
+    lda width
+    clc
+    sbc negate4,x
+    sta width
+    jmp c2
+
+c1: lda negate4,x
     tax
 
 xloop:
@@ -271,9 +280,10 @@ stay_on_char:
     iny
     sta (d),y
 
-    ldy scrx
+c2: ldy scrx
 skip_done:
     iny
+
 filler_test:
     lda (scr),y
 filler_test2:
