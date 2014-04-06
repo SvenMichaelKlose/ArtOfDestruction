@@ -27,32 +27,35 @@ tmp                     = $14
 tmp2                    = $15
 next_char               = $16
 
-result                  = $17
-product                 = $19
+result_decimals         = $18
+result                  = $19
+product                 = $1a
 denominator             = product
-counter                 = $1a
-save_x                  = $1b
-save_y                  = $1c
+counter                 = $1b
+save_x                  = $1c
+save_y                  = $1d
 
-xlf     = $1d
-xl      = $1e
-xrf     = $1f
-xr      = $20
-xbl     = $21
-xbr     = $22
-yt      = $23
-yb      = $24
 
-row     = $25
-width   = $26
-height  = $27
-xsl     = $28
-xsr     = $2a
-rows    = $2c
-xlcf    = $2d
-xlc     = $2e
-xrcf    = $2f
-xrc     = $30
-yc      = $31
-charline= $32
+slope_left_decimals     = $1e
+slope_left              = $1f
+slope_right_decimals    = $20
+slope_right             = $21
 
+x_left_decimals         = $22
+x_left                  = $23
+x_right_decimals        = $24
+x_right                 = $25
+x_bottom_left           = $26
+x_bottom_right          = $27
+y_top                   = $28
+y_bottom                = $29
+
+x_char_left_decimals    = $2a
+x_char_left             = $2b
+x_char_right_decimals   = $2c
+x_char_right            = $2d
+
+width                   = $2e
+height                  = $2f
+rows                    = $30
+charline                = $31

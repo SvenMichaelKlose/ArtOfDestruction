@@ -1,49 +1,49 @@
 polygon:
 .(
     lda #32         ; Our test coordinates.
-    sta xl
+    sta x_left
     lda #33
-    sta xr
+    sta x_right
     lda #0
-    sta xbl
+    sta x_bottom_left
     lda #80
-    sta xbr
+    sta x_bottom_right
     lda #0
-    sta yt
+    sta y_top
     lda #85
-    sta yb
+    sta y_bottom
 
     lda #0          ; Clear decimal places.
-    sta xlf
-    sta xrf
-    sta xrcf
-    sta xrcf
+    sta x_left_decimals
+    sta x_right_decimals
+    sta x_char_right_decimals
+    sta x_char_left_decimals
 
-    lda yb
+    lda y_bottom
     sec
-    sbc yt
+    sbc y_top
     sta height
     sta denominator
 
-    lda xbl         ; slope left
+    lda x_bottom_left         ; slope left
     sec
-    sbc xl
-    sta result+1
+    sbc x_left
+    sta result
     jsr divide
+    lda result_decimals
+    sta slope_left_decimals
     lda result
-    sta xsl
-    lda result+1
-    sta xsl+1
+    sta slope_left
 
-    lda xbr         ; slope right
+    lda x_bottom_right         ; slope right
     sec
-    sbc xr
-    sta result+1
+    sbc x_right
+    sta result
     jsr divide
+    lda result_decimals
+    sta slope_right_decimals
     lda result
-    sta xsr
-    lda result+1
-    sta xsr+1
+    sta slope_right
 
 fill_with_chars:
     lda height
@@ -52,15 +52,15 @@ fill_with_chars:
     beq draw_edges
     sta rows
 
-    lda xl
+    lda x_left
     lsr
     lsr
-    sta xlc
-    sta xrc
-    inc xlc
-    dec xrc
+    sta x_char_left
+    sta x_char_right
+    inc x_char_left
+    dec x_char_right
 
-    lda yt
+    lda y_top
     lsr
     lsr
     sta scry
@@ -70,13 +70,13 @@ fill_with_chars:
 ycloop:
     jsr scraddr
 
-    lda xrc         ; Number of chars in row.
+    lda x_char_right         ; Number of chars in row.
     sec
-    sbc xlc
+    sbc x_char_left
     bcc no_fill
     tax
 
-    ldy xlc
+    ldy x_char_left
     lda #1
 
 xcloop:
@@ -91,47 +91,47 @@ no_fill:
 
     inc scry
 
-    lda xlcf        ; Step left slope.
+    lda x_char_left_decimals        ; Step left slope.
     clc
-    adc xsl
-    sta xlcf
-    lda xlc
-    adc xsl+1
-    sta xlc
+    adc slope_left_decimals
+    sta x_char_left_decimals
+    lda x_char_left
+    adc slope_left
+    sta x_char_left
 
-    lda xrcf        ; Step right slope.
+    lda x_char_right_decimals        ; Step right slope.
     clc
-    adc xsr
-    sta xrcf
-    lda xrc
-    adc xsr+1
-    sta xrc
+    adc slope_right_decimals
+    sta x_char_right_decimals
+    lda x_char_right
+    adc slope_right
+    sta x_char_right
 
     jmp ycloop
 
 draw_edges:
 yloop:
-    lda yt
+    lda y_top
     and #3
     asl
     sta charline
 
-    lda yt
+    lda y_top
     lsr
     lsr
     sta scry
-    lda xl
+    lda x_left
     lsr
     lsr
     sta scrx
     jsr scraddr
 
-    lda xr
+    lda x_right
     sec
-    sbc xl
+    sbc x_left
     sta width
 
-    lda xl
+    lda x_left
     and #3
     beq filler_test
     tax
@@ -180,23 +180,23 @@ end_of_line:
     dec height
     beq done
 
-    inc yt
+    inc y_top
 
-    lda xlf     ; Step left slope.
+    lda x_left_decimals     ; Step left slope.
     clc
-    adc xsl
-    sta xlf
-    lda xl
-    adc xsl+1
-    sta xl
+    adc slope_left_decimals
+    sta x_left_decimals
+    lda x_left
+    adc slope_left
+    sta x_left
 
-    lda xrf     ; Step right slope.
+    lda x_right_decimals     ; Step right slope.
     clc
-    adc xsr
-    sta xrf
-    lda xr
-    adc xsr+1
-    sta xr
+    adc slope_right_decimals
+    sta x_right_decimals
+    lda x_right
+    adc slope_right
+    sta x_right
 
     jmp yloop
 
