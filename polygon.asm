@@ -96,18 +96,6 @@ make_top_section:
     tax
     jsr point_to_right
 
-    lda x_left
-    lsr
-    lsr
-    sta x_char_left
-    inc x_char_left
-
-    lda x_right
-    lsr
-    lsr
-    sta x_char_right
-    dec x_char_right
-
     jsr calculate_slope_left
     jsr calculate_slope_right
 
@@ -183,6 +171,17 @@ fill_with_chars:
     sta scry
     lda #0
     sta scrx
+
+    lda x_left
+    lsr
+    lsr
+    sta x_char_left
+    inc x_char_left
+    lda x_right
+    lsr
+    lsr
+    sta x_char_right
+    dec x_char_right
 
 ycloop:
     jsr scraddr
@@ -293,6 +292,7 @@ filler_test2:
     sec
     sbc #4
     sta width
+    beq end_of_line_without_plotting
     jmp skip_done
 
 no_skip:
@@ -305,6 +305,7 @@ end_of_line:
     iny
     sta (d),y
 
+end_of_line_without_plotting:
     lda x_left_decimals     ; Step left slope.
     clc
     adc slope_left_decimals
