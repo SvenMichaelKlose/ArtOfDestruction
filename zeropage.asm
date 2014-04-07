@@ -62,11 +62,17 @@ height_left             = $31
 height_right            = $32
 rows                    = $33
 charline                = $34
+point_left              = $35
+point_right             = $36
+section_height          = $37
 
-radius                  = $35
-degrees                 = $36
-xpos                    = $37
-ypos                    = $38
+radius                  = $38
+degrees                 = $39
+xpos                    = $3a
+ypos                    = $3b
+
+polyxcoords             = $3c
+polyycoords             = $40
 
 ; 20 vertices - generated just in time for each object.
 xcoords                 = $9c

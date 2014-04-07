@@ -1,13 +1,3 @@
-point_left:     .byte 0
-point_right:    .byte 0
-section_height: .byte 0
-
-xcoords:
-    .byte 20, 80, 70, 10
-ycoords:
-    .byte 20, 30, 80, 70
-    .byte 0 ; Keep this for finding the highest point.
-
 opposite_points:
     .byte 2
 previous_points:
@@ -16,16 +6,16 @@ next_points:
     .byte 1, 2, 3, 0
 
 point_to_left:
-    lda xcoords,x
+    lda polyxcoords,x
     sta x_bottom_left
-    lda ycoords,x
+    lda polyycoords,x
     sta y_bottom_left
     rts
 
 point_to_right:
-    lda xcoords,x
+    lda polyxcoords,x
     sta x_bottom_right
-    lda ycoords,x
+    lda polyycoords,x
     sta y_bottom_right
     rts
 
@@ -68,9 +58,9 @@ polygon:
 find_highest_point_in_quad:
     ldx #0
     lda #255
-l:  cmp ycoords,x
+l:  cmp polyycoords,x
     bcs found_point
-    lda ycoords,x
+    lda polyycoords,x
     inx
     jmp l
 found_point:
@@ -79,11 +69,11 @@ found_point:
     tax
 
 make_top_section:
-    lda xcoords,x
+    lda polyxcoords,x
     sta x_left
     sta x_right
     inc x_right
-    lda ycoords,x
+    lda polyycoords,x
     sta y_top
 
     lda previous_points,x
