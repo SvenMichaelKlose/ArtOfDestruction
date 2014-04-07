@@ -17,7 +17,8 @@ draw_pixel:
     tya
     and #7
     sta char_y
-    jsr scraddr_get_char
+    jsr scraddr
+    jsr get_char
     ldx char_x
     ldy char_y
     lda (d),y

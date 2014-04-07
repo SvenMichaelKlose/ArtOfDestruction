@@ -6,6 +6,21 @@ neg:eor #$ff
 abs_end:
     rts
 
+neg_result:
+.(
+    lda result
+    eor #$ff
+    sta result
+    lda result_decimals
+    eor #$ff
+    sta result_decimals
+    inc result_decimals
+    bne done
+    inc result
+done:
+    rts
+.)
+
 cosmul:
     sec
     sbc #64
@@ -13,12 +28,13 @@ sinmul:
     jsr sin
     sta product
     jsr multiply
-    sta result
     rts
 
 point_on_circle:
 .(
     lda radius
+    sta result_decimals
+    lda #0
     sta result
     lda degrees
     jsr sinmul
@@ -28,8 +44,10 @@ point_on_circle:
     tax
 
     lda radius
+    sta result_decimals                                                                                                                                       
+    lda #0
     sta result
-    lda degrees
+    lda counter
     jsr cosmul
     lda ypos
     clc

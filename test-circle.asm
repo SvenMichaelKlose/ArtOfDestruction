@@ -4,22 +4,14 @@ test_circle:
     sta counter
 
 l:  lda #45
-    sta result
+    sta radius
     lda counter
-    jsr sinmul
+    sta degrees
     lda #32
-    clc
-    adc result
-    tax
-
-    lda #160
-    sta result
-    lda counter
-    jsr cosmul
+    sta xpos
     lda #96
-    clc
-    adc result
-    tay
+    sta ypos
+    jsr point_on_circle
 
     jsr draw_pixel
 

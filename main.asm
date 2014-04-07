@@ -41,7 +41,7 @@ l:  lda #0
 .)
 
     jsr sky_and_ground
-    jsr polygon
+    jsr test_circle
 
 forever:
     jmp forever
