@@ -62,3 +62,17 @@ height_left             = $31
 height_right            = $32
 rows                    = $33
 charline                = $34
+
+radius                  = $35
+degrees                 = $36
+xpos                    = $37
+ypos                    = $38
+
+; 20 vertices - generated just in time for each object.
+xcoords                 = $9c
+ycoords                 = $b0
+zcoords                 = $c4
+
+; Projected vertices.
+xproj                   = $d8
+yproj                   = $ec
