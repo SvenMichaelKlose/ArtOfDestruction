@@ -1,25 +1,19 @@
 divide:
 .(
+    stx save_x
+    sty save_y
     lda result
     php
     bpl n
-    eor #$ff
-    clc
-    adc #1
+    jsr neg
     sta result
 n:  jsr unsigned_divide
     plp
     bpl done
-    lda result
-    eor #$ff
-    sta result
-    lda result_decimals
-    eor #$ff
-    sta result_decimals
-    inc result_decimals
-    bne done
-    inc result
+    jsr neg_result
 done:
+    ldx save_x
+    ldy save_y
     rts
 .)
     
