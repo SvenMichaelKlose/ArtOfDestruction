@@ -72,8 +72,8 @@ xpos                    = $3a
 ypos                    = $3b
 
 ; Projected polygon coordinates.
-polyxcoords             = $9c
-polyycoords             = $b0
+polyxcoords             = $bc
+polyycoords             = $c0
 
 ; 20 vertices (required for a tank) - generated just in time for each object.
 xcoords                 = $c4
