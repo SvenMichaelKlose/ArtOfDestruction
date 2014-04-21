@@ -55,7 +55,7 @@ calculate_slope_right:
 
 polygon:
 .(
-find_highest_point_in_quad:
+    ; Find top left point.
     ldx #0
     lda #255
 l:  cmp polyycoords,x
@@ -68,7 +68,7 @@ found_point:
     and #3
     tax
 
-make_top_section:
+    ; Make top section.
     lda polyxcoords,x
     sta x_left
     sta x_right
@@ -89,7 +89,7 @@ make_top_section:
     jsr calculate_slope_left
     jsr calculate_slope_right
 
-calculate_height:
+calculate_section_height:
     lda height_right
     cmp height_left
     bcc n1
@@ -99,10 +99,12 @@ n1: sta section_height
 
     jsr fill_polygon_section
 
+    ; Check if done (left and right hit the same point).
     lda point_left
     cmp point_right
     beq done
 
+    ; Update left side.
     lda height_left
     sec
     sbc section_height
@@ -116,6 +118,7 @@ n1: sta section_height
     jsr calculate_slope_left
 no_update_left:
 
+    ; Update right side.
     lda height_right
     sec
     sbc section_height
@@ -129,7 +132,7 @@ no_update_left:
     jsr calculate_slope_right
 no_update_right:
 
-    jmp calculate_height
+    jmp calculate_section_height
 
 done:
     rts
@@ -148,13 +151,15 @@ fill_polygon_section:
     sta x_char_right_decimals
     sta x_char_left_decimals
 
-fill_with_chars:
+; Fill inside with chars.
+    ; Get number of rows.
     lda height
     lsr
     lsr
     beq draw_edges
     sta rows
 
+    ; Get position of first row.
     lda y_top
     lsr
     lsr
@@ -162,6 +167,7 @@ fill_with_chars:
     lda #0
     sta scrx
 
+    ; Get X positions for left and right.
     lda x_left
     lsr
     lsr
@@ -176,7 +182,8 @@ fill_with_chars:
 ycloop:
     jsr scraddr
 
-    lda x_char_right         ; Number of chars in row.
+    ; Get number of chars in row.
+    lda x_char_right
     sec
     sbc x_char_left
     bcc no_fill
@@ -193,7 +200,8 @@ xcloop:
     bpl xcloop
 
 no_fill:
-    lda x_char_left_decimals        ; Step left slope.
+    ; Step down left slope.
+    lda x_char_left_decimals
     clc
     adc slope_left_decimals
     sta x_char_left_decimals
@@ -201,7 +209,8 @@ no_fill:
     adc slope_left
     sta x_char_left
 
-    lda x_char_right_decimals        ; Step right slope.
+    ; Step down right slope.
+    lda x_char_right_decimals
     clc
     adc slope_right_decimals
     sta x_char_right_decimals
@@ -215,6 +224,7 @@ no_fill:
     inc scry
     jmp ycloop
 
+; Fill in the edges but skip the chars already filled in.
 draw_edges:
 yloop:
     lda y_top
@@ -222,6 +232,7 @@ yloop:
     asl
     sta charline
 
+    ; Get screen position and address.
     lda y_top
     lsr
     lsr
@@ -232,6 +243,7 @@ yloop:
     sta scrx
     jsr scraddr
 
+    ; Get width of line.
     lda x_right
     sec
     sbc x_left
@@ -296,7 +308,8 @@ end_of_line:
     sta (d),y
 
 end_of_line_without_plotting:
-    lda x_left_decimals     ; Step left slope.
+    ; Step down left slope.
+    lda x_left_decimals
     clc
     adc slope_left_decimals
     sta x_left_decimals
@@ -304,7 +317,8 @@ end_of_line_without_plotting:
     adc slope_left
     sta x_left
 
-    lda x_right_decimals     ; Step right slope.
+    ; Step down right slope.
+    lda x_right_decimals
     clc
     adc slope_right_decimals
     sta x_right_decimals
