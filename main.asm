@@ -41,7 +41,7 @@ l:  lda #0
 .)
 
     jsr sky_and_ground
-    jsr test_circle
+    jsr world
 
 forever:
     jmp forever

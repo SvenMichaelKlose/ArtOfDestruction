@@ -21,5 +21,6 @@
 
 #include "main.asm"
 #include "polygon.asm"
+#include "world.asm"
 
 realend:
