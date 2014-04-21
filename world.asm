@@ -1,19 +1,19 @@
 screen_width    = 4*22
 screen_height   = 4*22
 
-ourxcoords: .byte 0, 30, 30, 0
-ourycoords: .byte 0, 10, 30, 20
-ourzcoords: .byte screen_width, screen_width, screen_width, screen_width
+fakexcoords: .byte 0, 30, 30, 0
+fakeycoords: .byte 0, 10, 30, 20
+fakezcoords: .byte screen_width, screen_width, screen_width, screen_width
 
 world:
     ; Make some polygon.
 .(
     ldx #3
-l:  lda ourxcoords,x
+l:  lda fakexcoords,x
     sta xcoords,x
-    lda ourycoords,x
+    lda fakeycoords,x
     sta ycoords,x
-    lda ourzcoords,x
+    lda fakezcoords,x
     sta zcoords,x
     dex
     bpl l
@@ -34,7 +34,7 @@ l:  lda xcoords,x
     lda #screen_width/2
     clc
     adc result
-    sta xproj,x
+    sta polyxcoords,x
 
     lda ycoords,x
     sta result
@@ -47,19 +47,8 @@ l:  lda xcoords,x
     lda #screen_height/2
     clc
     adc result
-    sta yproj,x
-
-    dex
-    bpl l
-.)
-
-    ; Copy to polygon coords.
-.(
-    ldx #3
-l:  lda xproj,x
-    sta polyxcoords,x
-    lda yproj,x
     sta polyycoords,x
+
     dex
     bpl l
 .)

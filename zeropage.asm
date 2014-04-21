@@ -71,14 +71,11 @@ degrees                 = $39
 xpos                    = $3a
 ypos                    = $3b
 
-polyxcoords             = $3c
-polyycoords             = $40
+; Projected polygon coordinates.
+polyxcoords             = $9c
+polyycoords             = $b0
 
-; 20 vertices - generated just in time for each object.
-xcoords                 = $9c
-ycoords                 = $b0
-zcoords                 = $c4
-
-; Projected vertices.
-xproj                   = $d8
-yproj                   = $ec
+; 20 vertices (required for a tank) - generated just in time for each object.
+xcoords                 = $c4
+ycoords                 = $d8
+zcoords                 = $ec
