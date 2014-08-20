@@ -27,8 +27,7 @@ cosmul:
 sinmul:
     jsr sin
     sta product
-    jsr multiply
-    rts
+    jmp multiply
 
 point_on_circle:
 .(
@@ -44,7 +43,7 @@ point_on_circle:
     tax
 
     lda radius
-    sta result_decimals                                                                                                                                       
+    sta result_decimals
     lda #0
     sta result
     lda counter
