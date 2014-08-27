@@ -2,7 +2,7 @@ multiply:
     stx save_x
     sty save_y
 
-    lda result  ; Signedness of result.
+    lda result  ; Determine and save signedness of result.
     eor product
     sta tmp
 
