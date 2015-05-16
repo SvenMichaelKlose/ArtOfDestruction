@@ -11,8 +11,8 @@ get_char_addr:
     lsr
     lsr
     lsr
-    ora #>charset
-    sta d+1
+    ora #@(high charset)
+    sta @(++ d)
     rts
 
 alloc_wrap:
@@ -26,7 +26,6 @@ alloc_char:
     inc next_char
 
 fetch_char:
-.(
     and #charsetmask
     pha
     jsr get_char_addr
@@ -34,25 +33,21 @@ fetch_char:
     pla
     iny
     rts
-.)
 
 test_position:
-.(
     lda scrx
     cmp #22
     bcs e
     lda scry
     cmp #23
 e:  rts
-.)
 
 get_char:
-.(
     jsr test_position
-    bcs cant_use_position
+    bcs +cant_use_position
     ldy scrx
     lda (scr),y
-    bne reuse_char
+    bne -reuse_char
     jsr alloc_char
     ldy scrx
     sta (scr),y
@@ -60,6 +55,5 @@ get_char:
 
 cant_use_position:
     lda #$f0
-    sta d+1
+    sta @(++ d)
     rts
-.)

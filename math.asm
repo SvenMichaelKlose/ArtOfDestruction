@@ -1,5 +1,4 @@
-abs:
-    bpl abs_end
+abs:bpl abs_end
 neg:eor #$ff
     clc
     adc #1
@@ -7,7 +6,6 @@ abs_end:
     rts
 
 neg_result:
-.(
     lda result
     eor #$ff
     sta result
@@ -15,11 +13,10 @@ neg_result:
     eor #$ff
     sta result_decimals
     inc result_decimals
-    bne done
+    bne +done
     inc result
 done:
     rts
-.)
 
 cosmul:
     sec
@@ -30,7 +27,6 @@ sinmul:
     jmp multiply
 
 point_on_circle:
-.(
     lda radius
     sta result_decimals
     lda #0
@@ -54,4 +50,3 @@ point_on_circle:
     tay
 
     rts
-.)

@@ -1,15 +1,13 @@
 sky_and_ground:
-.(
-    ldx #11*22
-    lda #cyan+multicolor
-l:  sta colors-1,x
+    ldx #@(* 11 22)
+    lda #@(+ cyan multicolor)
+l:  sta @(-- colors),x
     dex
-    bne l
+    bne -l
 
-    ldx #11*22
-    lda #green+multicolor
-l2: sta colors-1+11*22,x
+    ldx #@(* 11 22)
+    lda #@(+ green multicolor)
+l:  sta @(- colors (++ (* 11 22))),x
     dex
-    bne l2
+    bne -l
     rts
-.)

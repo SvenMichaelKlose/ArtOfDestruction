@@ -1,3 +1,4 @@
 #!/bin/sh
 
-xa -M includes.asm -o aod.prg -l labels.lst
+tre make-sinetab.lisp
+sbcl --core bender/bender make.lisp

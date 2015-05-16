@@ -1,9 +1,9 @@
 opposite_points:
-    .byte 2
+    2
 previous_points:
-    .byte 3, 0,
+    3 0
 next_points:
-    .byte 1, 2, 3, 0
+    1 2 3 0
 
 point_to_left:
     lda polyxcoords,x
@@ -54,7 +54,6 @@ calculate_slope_right:
     rts
 
 polygon:
-.(
     ; Find top left point.
     ldx #0
     lda #255
@@ -62,7 +61,7 @@ l:  cmp polyycoords,x
     bcs found_point
     lda polyycoords,x
     inx
-    jmp l
+    jmp -l
 found_point:
     txa
     and #3
@@ -92,7 +91,7 @@ found_point:
 calculate_section_height:
     lda height_right
     cmp height_left
-    bcc n1
+    bcc +n1
     lda height_left
 n1: sta section_height
     sta height
@@ -102,7 +101,7 @@ n1: sta section_height
     ; Check if done (left and right hit the same point).
     lda point_left
     cmp point_right
-    beq done
+    beq +done
 
     ; Update left side.
     lda height_left
@@ -136,14 +135,12 @@ no_update_right:
 
 done:
     rts
-.)
 
 fill_polygon_section:
-.(
     lda #1
-    sta filler_set+1
-    sta filler_test2+1
-    sta filler_test3+1
+    sta @(++ filler_set)
+    sta @(++ filler_test2)
+    sta @(++ filler_test3)
 
     lda #0          ; Clear decimal places.
     sta x_left_decimals
@@ -255,12 +252,12 @@ yloop:
     lda (scr),y
 filler_test3:
     cmp #0
-    bne c1
+    bne +c1
     lda width
     clc
     sbc negate4,x
     sta width
-    jmp c2
+    jmp +c2
 
 c1: lda negate4,x
     tax
@@ -327,23 +324,22 @@ end_of_line_without_plotting:
     sta x_right
 
     dec height
-    beq done
+    beq +done
 
     inc y_top
     jmp yloop
 
 done:
     rts
-.)
 
 pixelmasks:
-    .byte %11111100
-    .byte %11110011
-    .byte %11001111
-    .byte %00111111
+    %11111100
+    %11110011
+    %11001111
+    %00111111
 
 polypixels:
-    .byte %00000001
-    .byte %00000100
-    .byte %00010000
-    .byte %01000000
+    %00000001
+    %00000100
+    %00010000
+    %01000000

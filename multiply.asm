@@ -24,10 +24,9 @@ no_neg:
 
 ; Derived from http://codebase64.org/doku.php?id=base:8bit_multiplication_16bit_product
 unsigned_multiply:
-.(
     lda #$00
     tay
-    beq start
+    beq +start
 
 add:clc
     adc result_decimals
@@ -43,9 +42,8 @@ next_bit:
     rol result
 start:
     lsr product
-    bcs add
-    bne next_bit
+    bcs -add
+    bne -next_bit
     sta result_decimals
     sty result
     rts
-.)

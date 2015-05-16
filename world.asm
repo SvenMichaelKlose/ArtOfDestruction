@@ -1,13 +1,12 @@
-screen_width    = 4*22
-screen_height   = 4*22
+screen_width    = @(* 4 22)
+screen_height   = @(* 4 22)
 
-fakexcoords: .byte 0, 30, 30, 0
-fakeycoords: .byte 0, 10, 30, 20
-fakezcoords: .byte screen_width, screen_width, screen_width, screen_width
+fakexcoords: 0 30 30 0
+fakeycoords: 0 10 30 20
+fakezcoords: screen_width screen_width screen_width screen_width
 
 world:
     ; Make some polygon.
-.(
     ldx #3
 l:  lda fakexcoords,x
     sta xcoords,x
@@ -16,11 +15,9 @@ l:  lda fakexcoords,x
     lda fakezcoords,x
     sta zcoords,x
     dex
-    bpl l
-.)
+    bpl -l
 
     ; Project points to 2D.
-.(
     ldx #3
 
 l:  lda xcoords,x
@@ -31,7 +28,7 @@ l:  lda xcoords,x
     lda #screen_width
     sta product
     jsr multiply
-    lda #screen_width/2
+    lda #@(half screen_width)
     clc
     adc result
     sta polyxcoords,x
@@ -44,14 +41,13 @@ l:  lda xcoords,x
     lda #screen_height
     sta product
     jsr multiply
-    lda #screen_height/2
+    lda #@(half screen_height)
     clc
     adc result
     sta polyycoords,x
 
     dex
-    bpl l
-.)
+    bpl -l
 
     jsr polygon
 

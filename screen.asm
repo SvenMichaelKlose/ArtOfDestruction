@@ -1,40 +1,36 @@
 clear_screen:
-.(
     ldx #253
     lda #0
-l:  sta screen-1,x
-    sta screen+252,x
+l:  sta @(-- screen),x
+    sta @(+ screen 252),x
     dex
-    bne l
+    bne -l
     rts
-.)
-
 screen_h = >screen
 
-; Calculate line address in screen memory.
 scraddr:
     ldy scry
-    lda $edfd,y         ; Get low line address.
+    lda $edfd,y
     sta scr
-    cpy #12             ; Set carry flag if above line 11.
-    lda #screen_h/2     ; Take screen page shifted 1 to the right...
-    rol                 ; ... and roll in carry flag to add it.
-    sta scr+1
+    sta col
+    cpy #12
+    lda #@(half screen_h)
+    rol
+    sta @(++ scr)
     ldy scrx
     rts
 
-; Calculate line address in screen and colour memory.
 scrcoladdr:
     ldy scry
     lda $edfd,y
     sta scr
     sta col
     cpy #12
-    lda #screen_h/2
+    lda #@(half screen_h)
     rol
-    sta scr+1
+    sta @(++ scr)
     and #1
     ora #>colors
-    sta col+1
+    sta @(++ col)
     ldy scrx
     rts

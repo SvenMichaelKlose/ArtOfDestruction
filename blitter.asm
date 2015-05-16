@@ -1,9 +1,7 @@
 blit_clear_char:
-.(
     ldy #7
     lda #%10101010
-l1: sta (d),y
+l:  sta (d),y
     dey
-    bpl l1
+    bpl -l
     rts
-.)

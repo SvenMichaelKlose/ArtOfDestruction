@@ -1,4 +1,4 @@
-realstart   = $1000 + charsetsize
+realstart   = @(+ #x1000 charsetsize)
 
     sei
     lda #$7f
@@ -7,17 +7,15 @@ realstart   = $1000 + charsetsize
     sta $911e       ; Disable restore key NMIs.
 
 init_lowmem:
-.(
     ldx #0
 l:  lda lowmem,x
     sta $200,x
-    lda lowmem+$100,x
+    lda @(+ lowmem 256),x
     sta $300,x
     dex
-    bne l
-.)
+    bne -l
 
     lda #vic_charset_1000
-    sta vicreg_screenlo_charset
+    sta vicreg_screenhi_charset
 
     jmp main

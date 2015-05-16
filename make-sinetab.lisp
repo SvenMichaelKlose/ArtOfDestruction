@@ -7,5 +7,6 @@
   (with-output-file o "sinetab.asm"
     (format o "sinetab:~%")
     (adolist ((group (queue-list q) 8))
-      (format o "    .byte ~A~%" (apply #'+ (pad ! ", "))))))
+      (format o "    ~A~%" (apply #'+ (pad ! " "))))))
+
 (quit)

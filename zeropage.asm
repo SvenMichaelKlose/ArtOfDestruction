@@ -1,8 +1,8 @@
 numchars    = 128
 charset     = $1000
 
-charsetsize         = numchars * 8
-charsetmask         = numchars-1
+charsetsize         = @(* numchars 8)
+charsetmask         = @(-- numchars)
 
 s                       = $00
 d                       = $02
