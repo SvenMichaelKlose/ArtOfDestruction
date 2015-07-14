@@ -1,5 +1,7 @@
 numchars    = 128
 charset     = $1000
+screen      = $1e00
+colors      = $9600
 
 charsetsize         = @(* numchars 8)
 charsetmask         = @(-- numchars)
